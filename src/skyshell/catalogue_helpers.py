@@ -44,10 +44,10 @@ def load_constellation_polylines(filename):
 
 def load_hipparcos_positions(filename):
     """Returns a dictionary with the Hipparcos catalogue stars
-    and corresponding (RA,DEC) coordinates. The dictionary has
+    and corresponding (RA,DEC, mag) values. The dictionary has
     the format:
 
-   { HIP : (RA_deg, Dec_deg) }
+   { HIP : (RA_deg, Dec_deg, Magnitude) }
 
     """
     hip_pos = {}
