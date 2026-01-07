@@ -1,5 +1,5 @@
 <p align="center">
-<img src="assets/sky_shell_logo.png" alt="Skyshell Logo" width="100%">
+<img src="assets/sky_shell_logo.png" alt="Skyshell Logo" width="85%">
 </p>
 
 
@@ -32,7 +32,7 @@ fig.savefig(f'default_example.png', bbox_inches='tight')
 This will output the following figure:
 
 <p align="center">
-<img src="assets/default_example.png" alt="Example skyshell output" width="100%">
+<img src="assets/default_example_transparent.png" alt="Example skyshell output" width="90%">
 </p>
 
 The function can be called with a number of arguments that will tweak how the figure is generated:
