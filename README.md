@@ -38,9 +38,10 @@ This will output the following figure:
 The function can be called with a number of arguments that will tweak how the figure is generated:
 
 ```python
+import astropy.units as u
 from astropy.time import Time
 from astropy.coordinates import EarthLocation
-from src.skyshell.skyplot import get_sky_plot
+from skyshell.skyplot import get_sky_plot
 
 time = Time("2026-05-28 06:00:00", scale="utc")
 location = EarthLocation(lat=-24.6272*u.deg, lon=-70.4042*u.deg, height=2635*u.m)
@@ -66,3 +67,4 @@ fig, ax = get_sky_plot(
     
 fig.savefig(f'output.png', bbox_inches='tight')
 ```
+You can find a ready to run script in the `/example` folder.
