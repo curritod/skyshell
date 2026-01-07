@@ -21,6 +21,13 @@ from .sun_moon_position import get_moon_position
 from astropy.coordinates import EarthLocation
 PARANAL = EarthLocation(lat=-24.6272*u.deg, lon=-70.4042*u.deg, height=2635*u.m)
 
+#DEFAULT COLORS
+ECLIPTIC_COLOR = "#ffa01b"
+SUN_COLOR = "#ffa01b"
+MOON_COLOR = "#f3f3f3"
+EQUATOR_COLOR = "#476EAE"
+HORIZON_COLOR = "#E2915B"
+
 #Load package resources
 from importlib.resources import files
 
@@ -152,7 +159,13 @@ def get_sky_plot(
                 segments = split_on_wrap(l, b, threshold=90)
 
                 for lseg, bseg in segments:
-                    ax.plot(lseg, bseg, lw=0.1, c="white", transform=crs.PlateCarree())
+                    ax.plot(
+                        lseg, 
+                        bseg, 
+                        lw=0.1, 
+                        c="white", 
+                        transform=crs.PlateCarree()
+                        )
             
     if plot_ecliptic:
         
@@ -173,7 +186,15 @@ def get_sky_plot(
         segments = split_on_wrap(l, b)
 
         for lseg, bseg in segments:
-            ax.plot(lseg, bseg, color="#476EAE", lw=0.8, alpha=0.8, transform=crs.PlateCarree(), zorder=10)
+            ax.plot(
+                lseg, 
+                bseg, 
+                color=ECLIPTIC_COLOR, 
+                lw=0.8, 
+                alpha=0.8, 
+                transform=crs.PlateCarree(), 
+                zorder=10
+                )
 
     if plot_equator:
 
@@ -196,7 +217,7 @@ def get_sky_plot(
         for lseg, bseg in segments:
             ax.plot(
                 lseg, bseg,
-                color="#D97706", 
+                color=EQUATOR_COLOR, 
                 lw=0.8,
                 alpha=0.8,
                 transform=crs.PlateCarree(),
@@ -214,7 +235,7 @@ def get_sky_plot(
         ax.scatter(l, b, s=60, 
             edgecolors='white', 
             lw=0, 
-            c='orange', 
+            c=SUN_COLOR, 
             zorder=10,
             transform=crs.PlateCarree())
 
@@ -230,7 +251,7 @@ def get_sky_plot(
         ax.scatter(l, b, s=60, 
             edgecolors='white', 
             lw=0, 
-            c='white', 
+            c=MOON_COLOR, 
             zorder=10,
             transform=crs.PlateCarree())
  
@@ -272,9 +293,11 @@ def get_sky_plot(
                 levels=[0.5, 1],
                 colors=color,
                 alpha=0.8,
+                zorder=0,
                 transform=crs.PlateCarree()
             )
 
+    plot_moonlight=True
     if plot_moonlight:
 
         #Sky grid
@@ -297,9 +320,10 @@ def get_sky_plot(
         sep_moon = sky.separation(moon).deg
 
         #Plot distinct separations
-        ranges = [ (0,10) , (10,15), (15,20)]
-        colors = [ "#4575bcff", "#213b66ff", "#192029FF" ]
-        angle_transition = 1
+        ranges = [ (0,19) ,(19,20)]
+        colors = [  "#dceaffd7", "#FFFFFFDD" ]
+        
+        angle_transition = 0.3
 
         for angle, color in zip(ranges, colors):
 
@@ -312,7 +336,8 @@ def get_sky_plot(
                 L, B, mask_moon,
                 levels=[0.5, 1],
                 colors=color,
-                alpha=0.8,
+                # alpha=1.0,
+                zorder=2,
                 transform=crs.PlateCarree()
             )
 
@@ -341,7 +366,7 @@ def get_sky_plot(
 
         #Plot distinct separations
         ranges = [ (90,180) ]
-        colors = [ "#b75c36ff"]
+        colors = [HORIZON_COLOR]
         angle_transition = 1
 
         for angle, color in zip(ranges, colors):
@@ -355,7 +380,8 @@ def get_sky_plot(
                 L, B, mask_horizon,
                 levels=[0.5, 1],
                 colors=color,
-                alpha=0.8,
+                alpha=0.9,
+                zorder=200,
                 transform=crs.PlateCarree()
             )
 
@@ -379,9 +405,9 @@ def get_sky_plot(
             l_card,
             b_card,
             s=35,
-            c="#b75c36ff",
-            zorder=30,
-            alpha=0.8,
+            c=HORIZON_COLOR,
+            zorder=200,
+            alpha=0.9,
             transform=crs.PlateCarree()
         )
 
@@ -393,7 +419,7 @@ def get_sky_plot(
                  ha="center",
                  va="center",
                  color="black",
-                 zorder=31,
+                 zorder=201,
                  transform=crs.PlateCarree()
              )
 
